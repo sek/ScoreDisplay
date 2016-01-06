@@ -1,11 +1,31 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+	android:background="#000000">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <com.stankurdziel.scoredisplay.AutoResizeTextView
+		android:id="@+id/score"
+        android:text="0"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:textSize="400dp"
+		android:textColor="#FFFFFF"
+		android:gravity="center"/>
 
-</LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+		<View
+			android:id="@+id/up"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+		<View
+			android:id="@+id/down"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"/>
+	</LinearLayout>
+</RelativeLayout>
