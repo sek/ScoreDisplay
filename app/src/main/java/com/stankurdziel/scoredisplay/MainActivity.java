@@ -11,12 +11,19 @@ public class MainActivity extends Activity {
 	private TextView scoreView;
 	private int score = 0;
 
+	private static String SCORE = "SCORE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-
+		setContentView(R.layout.main);
+		
 		scoreView = (TextView) findViewById(R.id.score);
+		if(savedInstanceState != null) {
+			score = savedInstanceState.getInt(SCORE, 0);
+			updateUi();
+		}
+
 		View.OnClickListener onClick = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -28,14 +35,18 @@ public class MainActivity extends Activity {
 						score++;
 						break;
 				}
-				scoreView.setText(String.valueOf(score));
-				scoreView.invalidate();
+				updateUi();
 			}
 		};
 		findViewById(R.id.down).setOnClickListener(onClick);
 		findViewById(R.id.up).setOnClickListener(onClick);
     }
 
+	
+	private void updateUi() {
+		scoreView.setText(String.valueOf(score));
+	}
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -46,5 +57,11 @@ public class MainActivity extends Activity {
 			| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
 			| View.SYSTEM_UI_FLAG_FULLSCREEN
 			| View.SYSTEM_UI_FLAG_IMMERSIVE);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt(SCORE, score);
+		super.onSaveInstanceState(outState);
 	}
 }
