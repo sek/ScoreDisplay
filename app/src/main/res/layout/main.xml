@@ -1,31 +1,53 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-	android:background="#000000">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000"
+                android:gravity="center">
 
-    <com.stankurdziel.scoredisplay.AutoResizeTextView
-		android:id="@+id/score"
-        android:text="0"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-		android:textSize="400dp"
-		android:textColor="#FFFFFF"
-		android:gravity="center"/>
+        android:orientation="horizontal"
+        android:paddingRight="10dp">
 
-	<LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
-		<View
-			android:id="@+id/up"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1"/>
-		<View
-			android:id="@+id/down"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_weight="1"/>
-	</LinearLayout>
+        <TextView
+            android:id="@+id/scoreL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:scaleY="@dimen/score_y_scale"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/score_font_size"/>
+
+        <TextView
+            android:id="@+id/scoreR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:scaleY="@dimen/score_y_scale"
+            android:text="0"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/score_font_size"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/up"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:id="@+id/down"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </RelativeLayout>
