@@ -1,12 +1,24 @@
+# 21st Century Scoreboard
+
 Two instances of this app running side by side make a single scoreboard.
 
+![A 21st Century Scoreboard](https://scontent-lax3-1.xx.fbcdn.net/hphotos-xla1/v/t1.0-9/12523922_10153860902787173_5526631497506405450_n.jpg?oh=dd277462fe16fb5443cc0d5d0b760f1f&oe=573370EA)
 
-Let's Go Digital Font: http://www.fontspace.com/wlm-fonts/lets-go-digital license: Ubuntu Font License: http://font.ubuntu.com/ufl/
+## Acknowledgements
 
+* Let's Go Digital Font: http://www.fontspace.com/wlm-fonts/lets-go-digital license: Ubuntu Font License: http://font.ubuntu.com/ufl/
 
-- Thoughts of what TODO next:
+## Instructions
 
-* small instructions on screen
+* Tap on top of screen to increase by one point
+* Swipe 2 fingers up/down to adjust score by 2 points
+* Swipe 3 fingers up/down to adjust score by 3 points
+
+## Thoughts of what TODO next:
+
 * Home / Away team labels
-* show battery percentage on screen
 * bluetooth interaction between 2 scoreboards and a controller phone
+* small instructions on screen
+* input for 2/3 pointers (swipe 2/3 fingers up/down?)
+* show battery percentage on screen
+* other fonts?
