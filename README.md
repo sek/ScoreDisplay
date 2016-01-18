@@ -11,8 +11,7 @@ Two instances of this app running side by side make a single scoreboard.
 ## Instructions
 
 * Tap on top of screen to increase by one point
-* Swipe 2 fingers up/down to adjust score by 2 points
-* Swipe 3 fingers up/down to adjust score by 3 points
+* Long press anywhere to reset score to 0
 
 ## Thoughts of what TODO next:
 
