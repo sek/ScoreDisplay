@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="score_y_scale" format="float" type="dimen">2.3</item>
+    <dimen name="score_font_size">600dp</dimen>
+</resources>

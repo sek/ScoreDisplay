@@ -3,7 +3,9 @@ package com.stankurdziel.scoredisplay;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -46,8 +48,20 @@ public class MainActivity extends Activity {
                 updateUi();
             }
         };
-        findViewById(R.id.down).setOnClickListener(onClick);
-        findViewById(R.id.up).setOnClickListener(onClick);
+        View.OnLongClickListener onLongClick = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                score = 0;
+                updateUi();
+                return false;
+            }
+        };
+        final View down = findViewById(R.id.down);
+        down.setOnClickListener(onClick);
+        down.setOnLongClickListener(onLongClick);
+        final View up = findViewById(R.id.up);
+        up.setOnClickListener(onClick);
+        up.setOnLongClickListener(onLongClick);
     }
 
 
@@ -66,13 +80,23 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        setFlags();
+    }
+
+    private void setFlags() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        // TODO in future if score is 0 for a certain amount of time (10 mins?), could let screen turn off
+        // getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.screenBrightness = 1.0f;
+        getWindow().setAttributes(lp);
     }
 
     @Override

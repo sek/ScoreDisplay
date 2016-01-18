@@ -17,7 +17,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:scaleY="@dimen/score_y_scale"
-            android:text="0"
+            android:text=""
             android:textColor="#FFFFFF"
             android:textSize="@dimen/score_font_size"/>
 
