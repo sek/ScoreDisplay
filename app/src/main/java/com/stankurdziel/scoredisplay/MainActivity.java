@@ -1,9 +1,13 @@
 package com.stankurdziel.scoredisplay;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.MotionEvent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -62,8 +66,21 @@ public class MainActivity extends Activity {
         final View up = findViewById(R.id.up);
         up.setOnClickListener(onClick);
         up.setOnLongClickListener(onLongClick);
-    }
+        findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ControllerActivity.class));
+            }
+        });
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                score = intent.getIntExtra("score", 0);
+                updateUi();
+            }
+        }, new IntentFilter("new-score"));
+    }
 
     private void updateUi() {
         setScore(score);

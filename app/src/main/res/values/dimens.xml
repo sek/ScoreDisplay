@@ -2,4 +2,5 @@
 <resources>
     <item name="score_y_scale" format="float" type="dimen">2.3</item>
     <dimen name="score_font_size">350dp</dimen>
+    <dimen name="arrow_width">70dp</dimen>
 </resources>
