@@ -15,8 +15,10 @@ Two instances of this app running side by side make a single scoreboard.
 
 ## Thoughts of what TODO next:
 
+* use a phone as a remote control
+** input ip on server for display nodes (default to server ip minus last octet)
+** add lombok
 * Home / Away team labels
-* bluetooth interaction between 2 scoreboards and a controller phone
 * small instructions on screen
 * input for 2/3 pointers (swipe 2/3 fingers up/down?)
 * show battery percentage on screen

@@ -76,10 +76,11 @@ public class MainActivity extends Activity {
         LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                score = intent.getIntExtra("score", 0);
+                String request = intent.getStringExtra("request");
+                if(request.startsWith("set:")) score = Integer.parseInt(request.split("set:")[1]);
                 updateUi();
             }
-        }, new IntentFilter("new-score"));
+        }, new IntentFilter("incoming-request"));
     }
 
     private void updateUi() {
@@ -87,6 +88,8 @@ public class MainActivity extends Activity {
     }
 
     private void setScore(int score) {
+        ScoreApplication.getInstance(this).setScore(score);
+
         String leftCharacter = "";
         if (score / 10 != 0) leftCharacter = String.valueOf(score / 10);
         scoreL.setText(leftCharacter);
