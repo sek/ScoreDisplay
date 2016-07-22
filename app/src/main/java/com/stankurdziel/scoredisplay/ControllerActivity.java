@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -29,6 +30,8 @@ public class ControllerActivity extends Activity {
     private String serviceName;
     private SocketServerThread serverThread;
     private TextView ipAddress;
+    private EditText leftIp;
+    private EditText rightIp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class ControllerActivity extends Activity {
             }
         });
         ipAddress = (TextView) findViewById(R.id.ip_address);
+        leftIp = (EditText) findViewById(R.id.connect_left_ip);
+        rightIp = (EditText) findViewById(R.id.connect_right_ip);
     }
 
     private void startServer() {
@@ -69,6 +74,9 @@ public class ControllerActivity extends Activity {
                     @Override
                     public void run() {
                         ipAddress.setText(address);
+                        // TODO remove last octet from address - don't wait to start server to set these
+                        leftIp.setText(address);
+                        rightIp.setText(address);
                     }
                 });
 

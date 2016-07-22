@@ -17,6 +17,9 @@ Two instances of this app running side by side make a single scoreboard.
 
 * use a phone as a remote control
 ** input ip on server for display nodes (default to server ip minus last octet)
+** add code to connect to connected scoreboards
+** show the score on screen (instead of just left/right)
+** add increment/decrement score commands
 ** add lombok
 * Home / Away team labels
 * small instructions on screen

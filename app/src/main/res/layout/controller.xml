@@ -11,20 +11,36 @@
         android:layout_centerHorizontal="true"
         android:text="@string/start_server"/>
 
+    <EditText
+        android:id="@+id/connect_left_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:text="left ip"/>
+
     <Button
         android:id="@+id/connect_left_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/connect_left_ip"
         android:text="@string/connect_left"/>
+
+    <EditText
+        android:id="@+id/connect_right_ip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:text="right ip"/>
 
     <Button
         android:id="@+id/connect_right_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/connect_right_ip"
         android:text="@string/connect_right"/>
 
     <TextView
@@ -38,7 +54,7 @@
     <LinearLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
@@ -50,6 +66,13 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:text="@string/left"/>
 
             <ImageView
                 android:id="@+id/left_up"
@@ -64,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/left"/>
+                android:text="disconnected"/>
 
             <ImageView
                 android:id="@+id/left_down"
@@ -84,6 +107,13 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:gravity="center"
+                android:text="@string/right"/>
+
             <ImageView
                 android:id="@+id/right_up"
                 android:layout_width="@dimen/arrow_width"
@@ -97,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/right"/>
+                android:text="disconnected"/>
 
             <ImageView
                 android:id="@+id/right_down"
