@@ -1,16 +1,20 @@
 package com.stankurdziel.scoredisplay;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class MainActivity extends Activity {
 
@@ -25,8 +29,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        scoreL = (TextView) findViewById(R.id.scoreL);
-        scoreR = (TextView) findViewById(R.id.scoreR);
+        String deviceId = FirebaseInstanceId.getInstance().getId();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference scoreReference = database.getReference("scores/" + deviceId);
+        scoreReference.setValue(0);
+
+        Log.d("ScoreDisplay", "FirebaseInstanceId: " + deviceId);
+
+        scoreL = findViewById(R.id.scoreL);
+        scoreR = findViewById(R.id.scoreR);
         final Typeface font = Typeface.createFromAsset(getAssets(), "Let's go Digital Regular.ttf");
         scoreL.setTypeface(font);
         scoreR.setTypeface(font);
@@ -34,8 +45,7 @@ public class MainActivity extends Activity {
         scoreR.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
         if (savedInstanceState != null) {
-            score = savedInstanceState.getInt(SCORE, 0);
-            updateUi();
+            setScore(savedInstanceState.getInt(SCORE, 0));
         }
 
         View.OnClickListener onClick = new View.OnClickListener() {
@@ -43,21 +53,19 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.down:
-                        if (score > 0) score--;
+                        incrementScore();
                         break;
                     case R.id.up:
-                        if (score < 99) score++;
+                        decrementScore();
                         break;
                 }
-                updateUi();
             }
         };
         View.OnLongClickListener onLongClick = new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                score = 0;
-                updateUi();
-                return false;
+                setScore(0);
+                return true;
             }
         };
         final View down = findViewById(R.id.down);
@@ -65,28 +73,55 @@ public class MainActivity extends Activity {
         down.setOnLongClickListener(onLongClick);
         final View up = findViewById(R.id.up);
         up.setOnClickListener(onClick);
-        up.setOnLongClickListener(onLongClick);
+
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ControllerActivity.class));
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
+    }
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+    private void subscribeToServerSideDbChanges(DatabaseReference scoreReference) {
+        // TODO trigger this when user selects to show barcode
+        // TODO would be good to abstract subscribe and publish score
+        scoreReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onReceive(Context context, Intent intent) {
-                score = intent.getIntExtra("score", 0);
-                updateUi();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                setScore(dataSnapshot.getValue(Integer.class));
             }
-        }, new IntentFilter("new-score"));
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("ScoreDisplay", "onCancelled(): " + databaseError.getMessage());
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(SCORE, score);
+        super.onSaveInstanceState(outState);
+    }
+
+    private void decrementScore() {
+        if (score < 99) setScore(score + 1);
+    }
+
+    private void incrementScore() {
+        if (score > 0) setScore(score - 1);
+    }
+
+    private void setScore(int i) {
+        score = i;
+        updateUi();
     }
 
     private void updateUi() {
-        setScore(score);
+        displayScore(score);
     }
 
-    private void setScore(int score) {
+    private void displayScore(int score) {
         String leftCharacter = "";
         if (score / 10 != 0) leftCharacter = String.valueOf(score / 10);
         scoreL.setText(leftCharacter);
@@ -97,10 +132,10 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        setFlags();
+        setFullscreenFullBrightness();
     }
 
-    private void setFlags() {
+    private void setFullscreenFullBrightness() {
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -114,11 +149,5 @@ public class MainActivity extends Activity {
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.screenBrightness = 1.0f;
         getWindow().setAttributes(lp);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(SCORE, score);
-        super.onSaveInstanceState(outState);
     }
 }

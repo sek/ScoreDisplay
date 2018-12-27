@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "218933912962",
+    "firebase_url": "https://scoredisplay-54d11.firebaseio.com",
+    "project_id": "scoredisplay-54d11",
+    "storage_bucket": "scoredisplay-54d11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:218933912962:android:3a5509abb259580a",
+        "android_client_info": {
+          "package_name": "com.stankurdziel.scoredisplay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "218933912962-nkt8c8bdqcp1ou6a6nd64d8769be6rrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8UFVIxTT0vtYb4odQv5HYZyIr8nqe0M4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "218933912962-nkt8c8bdqcp1ou6a6nd64d8769be6rrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

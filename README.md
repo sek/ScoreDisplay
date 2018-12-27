@@ -12,8 +12,26 @@ Two instances of this app running side by side make a single scoreboard.
 
 * Tap on top of screen to increase by one point
 * Long press anywhere to reset score to 0
+* Use Settings FAB (Gear) to
+** switch from Black on White to White on Black
+** Use a 3rd device as a controller for two score displays
+*** Start Controller
+*** Show QR code on a display
+*** Use Controller to scan QR code 
+
 
 ## Thoughts of what TODO next:
+
+* Switch to Kotlin
+
+* Have controller set values in firebase db
+* Add a way to "pair" controller to scoreboards
+* Allow using both controller as well as local adjustment of score
+* Handle case where there's no inet connection?
+* Allow multiple controllers?
+* Settings activity
+** Controller Mode
+** Scoreboard Mode - 1     (could do 2 in future...   ex: a single tv could fit both scores)
 
 * Home / Away team labels
 * bluetooth interaction between 2 scoreboards and a controller phone
@@ -21,3 +39,5 @@ Two instances of this app running side by side make a single scoreboard.
 * input for 2/3 pointers (swipe 2/3 fingers up/down?)
 * show battery percentage on screen
 * other fonts?
+
+* Chromecast support?

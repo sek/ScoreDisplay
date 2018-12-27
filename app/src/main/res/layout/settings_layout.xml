@@ -3,20 +3,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
+    <!-- Show ID -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/connect_button"
+            android:id="@+id/show_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/connect"/>
-        <Button
-            android:id="@+id/start_server_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/start_server"/>
+            android:text="@string/show_id"/>
     </LinearLayout>
 
     <LinearLayout
@@ -24,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
         <!-- TODO reduce duplication between left and right -->
         <LinearLayout
             android:id="@+id/left_controls"
@@ -43,6 +41,7 @@
                 android:src="@drawable/up"/>
 
             <TextView
+                android:id="@+id/left_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -76,6 +75,7 @@
                 android:src="@drawable/up"/>
 
             <TextView
+                android:id="@+id/right_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
