@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
-import com.stankurdziel.scoredisplay.SettingsActivity.CAMERA_REQUEST_CODE
+import com.stankurdziel.scoredisplay.SettingsActivity.Companion.CAMERA_REQUEST_CODE
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
