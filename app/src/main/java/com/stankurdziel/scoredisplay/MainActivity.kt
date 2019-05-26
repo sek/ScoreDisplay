@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,11 +14,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.iid.FirebaseInstanceId
+import kotlinx.android.synthetic.main.main.*
 
 class MainActivity : Activity() {
-
-    private var scoreL: TextView? = null
-    private var scoreR: TextView? = null
 
     private var score = 0
     private lateinit var scoreReference:DatabaseReference
@@ -34,8 +31,6 @@ class MainActivity : Activity() {
         scoreReference.setValue(0)
         subscribeToServerSideDbChanges(scoreReference)
 
-        scoreL = findViewById(R.id.scoreL)
-        scoreR = findViewById(R.id.scoreR)
         val font = Typeface.createFromAsset(assets, "Let's go Digital Regular.ttf")
         scoreL!!.typeface = font
         scoreR!!.typeface = font
@@ -56,13 +51,11 @@ class MainActivity : Activity() {
             setScore(0)
             true
         }
-        val down = findViewById<View>(R.id.down)
         down.setOnClickListener(onClick)
         down.setOnLongClickListener(onLongClick)
-        val up = findViewById<View>(R.id.up)
         up.setOnClickListener(onClick)
 
-        findViewById<View>(R.id.fab).setOnClickListener { startActivity(Intent(this@MainActivity, SettingsActivity::class.java)) }
+        fab.setOnClickListener { startActivity(Intent(this@MainActivity, SettingsActivity::class.java)) }
     }
 
     private fun subscribeToServerSideDbChanges(scoreReference: DatabaseReference) {

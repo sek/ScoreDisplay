@@ -9,31 +9,31 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import kotlinx.android.synthetic.main.qrcode_dialog.*
+import kotlinx.android.synthetic.main.settings_layout.*
 
 class SettingsActivity : AppCompatActivity() {
 
     private var leftId: String = ""
     private var leftScore: Int = 0
-    val database = FirebaseDatabase.getInstance()
+    private val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_layout)
-        findViewById<View>(R.id.show_id).setOnClickListener { showQrCodeDialog() }
-        findViewById<View>(R.id.left_title).setOnClickListener {
+        show_id.setOnClickListener { showQrCodeDialog() }
+        left_title.setOnClickListener {
             startActivityForResult(Intent(this, QrCodeScannerActivity::class.java), CAMERA_REQUEST_CODE)
         }
-        findViewById<ImageView>(R.id.left_up).setOnClickListener {
+        left_up.setOnClickListener {
             if (leftId.length > 0) database.getReference("scores/$leftId").setValue(++leftScore)
         }
-        findViewById<ImageView>(R.id.left_down).setOnClickListener {
+        left_down.setOnClickListener {
             if (leftId.length > 0) database.getReference("scores/$leftId").setValue(--leftScore)
         }
     }
@@ -59,13 +59,13 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            (qrDialogView.findViewById<View>(R.id.qrcode) as ImageView).setImageBitmap(bmp)
-            (qrDialogView.findViewById<View>(R.id.qrcode_text) as TextView).text = firebaseId
+            qrcode.setImageBitmap(bmp)
+            qrcode_text.text = firebaseId
         } catch (e: WriterException) {
             e.printStackTrace()
         }
 
-        qrDialogView.findViewById<View>(R.id.close).setOnClickListener { qrCodeDialog.dismiss() }
+        close.setOnClickListener { qrCodeDialog.dismiss() }
         qrCodeDialog.show()
     }
 

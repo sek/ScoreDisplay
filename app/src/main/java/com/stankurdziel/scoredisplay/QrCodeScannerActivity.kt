@@ -11,24 +11,22 @@ import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
 import com.stankurdziel.scoredisplay.SettingsActivity.Companion.CAMERA_REQUEST_CODE
+import kotlinx.android.synthetic.main.qrcode_scanner_layout.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
 class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
-    private lateinit var scanner: ZXingScannerView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.qrcode_scanner_layout)
-        scanner = findViewById(R.id.qrCodeScanner)
         setScannerProperties()
     }
 
     private fun setScannerProperties() {
-        scanner.setFormats(listOf(BarcodeFormat.QR_CODE))
-        scanner.setAutoFocus(true)
-        scanner.setLaserColor(R.color.viewfinder_laser)
-        scanner.setMaskColor(R.color.viewfinder_mask)
-        if (Build.MANUFACTURER.equals("HUAWEI", ignoreCase = true)) scanner.setAspectTolerance(0.5f)
+        qrCodeScanner.setFormats(listOf(BarcodeFormat.QR_CODE))
+        qrCodeScanner.setAutoFocus(true)
+        qrCodeScanner.setLaserColor(R.color.viewfinder_laser)
+        qrCodeScanner.setMaskColor(R.color.viewfinder_mask)
+        if (Build.MANUFACTURER.equals("HUAWEI", ignoreCase = true)) qrCodeScanner.setAspectTolerance(0.5f)
     }
 
     override fun onResume() {
@@ -42,8 +40,8 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
                 return
             }
         }
-        scanner.startCamera()
-        scanner.setResultHandler(this)
+        qrCodeScanner.startCamera()
+        qrCodeScanner.setResultHandler(this)
     }
 
     override fun handleResult(p0: Result?) {
@@ -68,6 +66,6 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
 
     override fun onPause() {
         super.onPause()
-        scanner.stopCamera()
+        qrCodeScanner.stopCamera()
     }
 }
