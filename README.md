@@ -22,11 +22,18 @@ Two instances of this app running side by side make a single scoreboard.
 
 ## Thoughts of what TODO next:
 
-* Switch to Kotlin
+x Switch to Kotlin
+x Have controller set values in firebase db
+x Add a way to "pair" controller to scoreboards
+x fix back from scanner activity
 
-* Have controller set values in firebase db
-* Add a way to "pair" controller to scoreboards
+* make the scoreboard linking persistent
+* support both left and right
+
+
 * Allow using both controller as well as local adjustment of score
+
+
 * Handle case where there's no inet connection?
 * Allow multiple controllers?
 * Settings activity

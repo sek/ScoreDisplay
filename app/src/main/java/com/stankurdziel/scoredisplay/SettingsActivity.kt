@@ -11,26 +11,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
-import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 
 class SettingsActivity : AppCompatActivity() {
+
+    private var leftId: String = ""
+    private var leftScore: Int = 0
+    val database = FirebaseDatabase.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_layout)
         findViewById<View>(R.id.show_id).setOnClickListener { showQrCodeDialog() }
-        findViewById<View>(R.id.left_title).setOnClickListener { startActivityForResult(Intent(this@SettingsActivity, QrCodeScannerActivity::class.java), CAMERA_REQUEST_CODE) }
+        findViewById<View>(R.id.left_title).setOnClickListener {
+            startActivityForResult(Intent(this, QrCodeScannerActivity::class.java), CAMERA_REQUEST_CODE)
+        }
+        findViewById<ImageView>(R.id.left_up).setOnClickListener {
+            if (leftId.length > 0) database.getReference("scores/$leftId").setValue(++leftScore)
+        }
+        findViewById<ImageView>(R.id.left_down).setOnClickListener {
+            if (leftId.length > 0) database.getReference("scores/$leftId").setValue(--leftScore)
+        }
     }
 
     private fun showQrCodeDialog() {
-        val factory = LayoutInflater.from(this@SettingsActivity)
+        val factory = LayoutInflater.from(this)
         val qrDialogView = factory.inflate(R.layout.qrcode_dialog, null)
-        val qrCodeDialog = AlertDialog.Builder(this@SettingsActivity)
+        val qrCodeDialog = AlertDialog.Builder(this)
                 .setTitle(R.string.qr_dialog_title)
                 .setView(qrDialogView)
                 .create()
@@ -60,6 +71,8 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
+        val result = QrCodeScannerActivity.extractId(data)
+        if (result != null) leftId = result
         Log.d("SEK", "Received result. RequestCode: " + requestCode + " data: " + QrCodeScannerActivity.extractId(data))
 
         // TODO, set left or right scanner name

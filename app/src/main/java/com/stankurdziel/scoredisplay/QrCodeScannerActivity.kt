@@ -61,7 +61,7 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
     }
 
     companion object {
-        fun extractId(result: Intent): String {
+        fun extractId(result: Intent): String? {
             return result.getStringExtra("id")
         }
     }

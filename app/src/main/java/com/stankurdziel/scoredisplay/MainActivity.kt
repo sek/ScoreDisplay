@@ -22,6 +22,7 @@ class MainActivity : Activity() {
     private var scoreR: TextView? = null
 
     private var score = 0
+    private lateinit var scoreReference:DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +30,9 @@ class MainActivity : Activity() {
 
         val deviceId = FirebaseInstanceId.getInstance().id
         val database = FirebaseDatabase.getInstance()
-        val scoreReference = database.getReference("scores/$deviceId")
+        scoreReference = database.getReference("scores/$deviceId")
         scoreReference.setValue(0)
-
-        Log.d("ScoreDisplay", "FirebaseInstanceId: $deviceId")
+        subscribeToServerSideDbChanges(scoreReference)
 
         scoreL = findViewById(R.id.scoreL)
         scoreR = findViewById(R.id.scoreR)
@@ -67,7 +67,6 @@ class MainActivity : Activity() {
 
     private fun subscribeToServerSideDbChanges(scoreReference: DatabaseReference) {
         // TODO trigger this when user selects to show barcode
-        // TODO would be good to abstract subscribe and publish score
         scoreReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 setScore(dataSnapshot.getValue(Int::class.java))
@@ -94,6 +93,8 @@ class MainActivity : Activity() {
 
     private fun setScore(i: Int) {
         score = i
+        // TODO test with no inet connection
+        scoreReference.setValue(score)
         updateUi()
     }
 
