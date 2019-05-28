@@ -7,44 +7,40 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import android.widget.TextView
+import com.google.firebase.database.*
 import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.main.*
 
 class MainActivity : Activity() {
-
     private var score = 0
-    private lateinit var scoreReference:DatabaseReference
+    private var scoreReference: DatabaseReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
+        setupGui(savedInstanceState)
+        setupScoreReference()
+    }
+
+    private fun setupScoreReference() {
         val deviceId = FirebaseInstanceId.getInstance().id
         val database = FirebaseDatabase.getInstance()
         scoreReference = database.getReference("scores/$deviceId")
-        scoreReference.setValue(0)
+        scoreReference?.setValue(0)
         subscribeToServerSideDbChanges(scoreReference)
+    }
 
-        val font = Typeface.createFromAsset(assets, "Let's go Digital Regular.ttf")
-        scoreL!!.typeface = font
-        scoreR!!.typeface = font
-        scoreL!!.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-        scoreR!!.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+    private fun setupGui(savedInstanceState: Bundle?) {
+        applyFont("Let's go Digital Regular.ttf", scoreL, scoreR)
 
-        if (savedInstanceState != null) {
-            setScore(savedInstanceState.getInt(SCORE, 0))
-        }
+        if (savedInstanceState != null) setScore(savedInstanceState.getInt(SCORE, 0))
 
-        val onClick = View.OnClickListener { v ->
-            when (v.id) {
-                R.id.down -> incrementScore()
-                R.id.up -> decrementScore()
+        val onClick = View.OnClickListener {
+            when (it.id) {
+                R.id.down -> setScore(score - 1)
+                R.id.up -> setScore(score + 1)
             }
         }
         val onLongClick = View.OnLongClickListener {
@@ -58,11 +54,19 @@ class MainActivity : Activity() {
         fab.setOnClickListener { startActivity(Intent(this@MainActivity, SettingsActivity::class.java)) }
     }
 
-    private fun subscribeToServerSideDbChanges(scoreReference: DatabaseReference) {
+    private fun applyFont(fontPath: String, vararg views: TextView) {
+        val font = Typeface.createFromAsset(assets, fontPath)
+        for (view in views) {
+            view.typeface = font
+            view.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+        }
+    }
+
+    private fun subscribeToServerSideDbChanges(scoreReference: DatabaseReference?) {
         // TODO trigger this when user selects to show barcode
-        scoreReference.addValueEventListener(object : ValueEventListener {
+        scoreReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                setScore(dataSnapshot.getValue(Int::class.java))
+                setScore(dataSnapshot.getValue(Int::class.java), false)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -76,18 +80,11 @@ class MainActivity : Activity() {
         super.onSaveInstanceState(outState)
     }
 
-    private fun decrementScore() {
-        if (score < 99) setScore(score + 1)
-    }
-
-    private fun incrementScore() {
-        if (score > 0) setScore(score - 1)
-    }
-
-    private fun setScore(i: Int) {
-        score = i
-        // TODO test with no inet connection
-        scoreReference.setValue(score)
+    private fun setScore(newScore: Int, persist: Boolean = true) {
+        score = newScore
+        if (score < 0) score = 0
+        if (score > 99) score = 99
+        if (persist) scoreReference?.setValue(score)
         updateUi()
     }
 
@@ -124,6 +121,6 @@ class MainActivity : Activity() {
     }
 
     companion object {
-        private val SCORE = "SCORE"
+        private const val SCORE = "SCORE"
     }
 }

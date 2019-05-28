@@ -13,7 +13,6 @@ Two instances of this app running side by side make a single scoreboard.
 * Tap on top of screen to increase by one point
 * Long press anywhere to reset score to 0
 * Use Settings FAB (Gear) to
-** switch from Black on White to White on Black
 ** Use a 3rd device as a controller for two score displays
 *** Start Controller
 *** Show QR code on a display
@@ -22,11 +21,16 @@ Two instances of this app running side by side make a single scoreboard.
 
 ## Thoughts of what TODO next:
 
-* make the scoreboard linking persistent
-* support both left and right displays
+- fix long press in mainactivity to reset the score
+- controller should not be able to go below 0 or over 99
 
-* Allow using both controller as well as local adjustment of score
+- use travis ci to build in github: https://docs.travis-ci.com/user/languages/android/
 
+* rework the controller UI
+  - make an icon for App
+  - team labels
+
+* once controller has scanned a display, have display return to score somehow
 
 * Handle case where there's no inet connection?
 * Allow multiple controllers?
@@ -34,11 +38,14 @@ Two instances of this app running side by side make a single scoreboard.
 ** Controller Mode
 ** Scoreboard Mode - 1     (could do 2 in future...   ex: a single tv could fit both scores)
 
-* Home / Away team labels
-* bluetooth interaction between 2 scoreboards and a controller phone
+* setting to toggle Black on White <--> White on Black
+
+* Google QRCode reader (MLKit?) is probably way better
+
 * small instructions on screen
 * input for 2/3 pointers (swipe 2/3 fingers up/down?)
 * show battery percentage on screen
-* other fonts?
 
-* Chromecast support?
+* Chromecast support for a big screen TV would be cool?
+
+* other fonts?

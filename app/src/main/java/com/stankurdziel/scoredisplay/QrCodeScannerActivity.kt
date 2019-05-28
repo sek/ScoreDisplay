@@ -7,10 +7,11 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.Result
-import com.stankurdziel.scoredisplay.SettingsActivity.Companion.CAMERA_REQUEST_CODE
+import com.stankurdziel.scoredisplay.SettingsActivity.Companion.CAMERA_LEFT_REQUEST_CODE
 import kotlinx.android.synthetic.main.qrcode_scanner_layout.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 
@@ -19,6 +20,22 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
         super.onCreate(savedInstanceState)
         setContentView(R.layout.qrcode_scanner_layout)
         setScannerProperties()
+
+        disconnect_display.setOnClickListener {
+            returnResult(Display.DEFAULT_ID)
+        }
+
+        type_id_button.setOnClickListener {
+            input.visibility = View.VISIBLE
+        }
+        submit.setOnClickListener {
+            returnResult(enter_id.text.toString())
+        }
+    }
+
+    private fun returnResult(displayId: String) {
+        setResult(RESULT_OK, createResultIntent(displayId))
+        finish()
     }
 
     private fun setScannerProperties() {
@@ -35,7 +52,7 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(
                         this, arrayOf(Manifest.permission.CAMERA),
-                        CAMERA_REQUEST_CODE
+                        CAMERA_LEFT_REQUEST_CODE
                 )
                 return
             }
@@ -47,8 +64,7 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
     override fun handleResult(p0: Result?) {
         if (p0 != null) {
             Toast.makeText(this, p0.text, Toast.LENGTH_LONG).show()
-            setResult(RESULT_OK, createResultIntent(p0.text))
-            finish()
+            returnResult(p0.text)
         }
     }
 
@@ -59,9 +75,7 @@ class QrCodeScannerActivity : AppCompatActivity(), ZXingScannerView.ResultHandle
     }
 
     companion object {
-        fun extractId(result: Intent): String? {
-            return result.getStringExtra("id")
-        }
+        fun extractId(result: Intent?): String? = result?.getStringExtra("id")
     }
 
     override fun onPause() {

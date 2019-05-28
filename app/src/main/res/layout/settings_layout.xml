@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:orientation="horizontal">
         <!-- TODO reduce duplication between left and right -->
         <LinearLayout
             android:id="@+id/left_controls"
@@ -40,13 +40,29 @@
                 android:layout_weight="1"
                 android:src="@drawable/up"/>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/left_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/left"/>
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/left"/>
+
+                <ImageView
+                    android:id="@+id/left_tablet_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tablet_icon"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/left_down"
@@ -56,6 +72,12 @@
                 android:layout_weight="1"
                 android:rotation="180"
                 android:src="@drawable/up"/>
+
+            <TextView
+                android:id="@+id/left_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,13 +96,29 @@
                 android:layout_weight="1"
                 android:src="@drawable/up"/>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/right_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/right"/>
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/right"/>
+
+                <ImageView
+                    android:id="@+id/right_tablet_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/tablet_icon"
+                    android:visibility="gone"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/right_down"
@@ -90,7 +128,20 @@
                 android:layout_weight="1"
                 android:rotation="180"
                 android:src="@drawable/up"/>
+
+            <TextView
+                android:id="@+id/right_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"/>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/reset_scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Reset Scores"/>
 
 </RelativeLayout>

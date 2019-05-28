@@ -12,6 +12,8 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -26,6 +28,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:10.0.1'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    testImplementation 'junit:junit:4.12'
+
+    androidTestImplementation 'androidx.test:runner:1.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
