@@ -3,9 +3,7 @@ gen/
 obj/
 libs/*/*.so
 .idea
-gradle
 .gradle
-gradlew*
 local.properties
 *.iml
 *.sw*
