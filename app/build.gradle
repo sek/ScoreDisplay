@@ -21,6 +21,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    testOptions.unitTests.all {
+        afterSuite { desc, result ->
+            if (!desc.parent)
+                println("${result.resultType} " +
+                        "(${result.testCount} tests, " +
+                        "${result.successfulTestCount} successes, " +
+                        "${result.failedTestCount} failures, " +
+                        "${result.skippedTestCount} skipped)")
+        }
+    }
 }
 
 dependencies {

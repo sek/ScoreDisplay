@@ -4,6 +4,10 @@ android:
   components:
     - build-tools-28.0.3
     - android-26
+#    - sys-img-x86-android-26    TODO run connectedAndroidTests
 
 script:
-  - ./gradlew app:packageDebug
+  - ./gradlew app:test app:packageDebug
+
+# test results: app/build/reports/tests/testDebugUnitTest/*   TODO: Publish on build
+# TODO publish apk to play store (separate job?)

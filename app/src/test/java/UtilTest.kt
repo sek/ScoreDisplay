@@ -6,7 +6,7 @@ import org.junit.Test
 class UtilTest {
     @Test
     fun testCreateDisplay() {
-        val d:Display = Display("left", "abc")
+        val d = Display("left", "abc")
         Assert.assertEquals("left:abc", d.serialized())
     }
 }
