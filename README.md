@@ -29,22 +29,23 @@ Two instances of this app running side by side make a single scoreboard.
 - controller should not be able to go below 0 or over 99
 
 - use travis ci to build in github: https://docs.travis-ci.com/user/languages/android/
+- publish in Google Play
 
 * rework the controller UI
+  - make a view for the score...  use it on the controller
   - make an icon for App
-  - team labels
+  - team labels (requires DB update to have label under the id too and not just the score)
+
+* Navigation Editor
 
 * once controller has scanned a display, have display return to score somehow
 
 * Handle case where there's no inet connection?
-* Allow multiple controllers?
 * Settings activity
 ** Controller Mode
 ** Scoreboard Mode - 1     (could do 2 in future...   ex: a single tv could fit both scores)
 
 * setting to toggle Black on White <--> White on Black
-
-* Google QRCode reader (MLKit?) is probably way better
 
 * small instructions on screen
 * input for 2/3 pointers (swipe 2/3 fingers up/down?)
@@ -53,3 +54,5 @@ Two instances of this app running side by side make a single scoreboard.
 * Chromecast support for a big screen TV would be cool?
 
 * other fonts?
+
+* Google QRCode reader (MLKit) is probably way better

@@ -19,7 +19,7 @@
     <LinearLayout
         android:id="@+id/controls"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="350dp"
         android:layout_marginTop="50dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
@@ -32,10 +32,18 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/left_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="0"
+                android:textSize="40dp"/>
+
             <ImageView
                 android:id="@+id/left_up"
                 android:layout_width="@dimen/arrow_width"
-                android:layout_height="25dp"
+                android:layout_height="@dimen/arrow_height"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_weight="1"
                 android:src="@drawable/up"/>
@@ -67,17 +75,11 @@
             <ImageView
                 android:id="@+id/left_down"
                 android:layout_width="@dimen/arrow_width"
-                android:layout_height="25dp"
+                android:layout_height="@dimen/arrow_height"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_weight="1"
                 android:rotation="180"
                 android:src="@drawable/up"/>
-
-            <TextView
-                android:id="@+id/left_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"/>
         </LinearLayout>
 
         <LinearLayout
@@ -88,10 +90,18 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/right_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:text="0"
+                android:textSize="40dp"/>
+
             <ImageView
                 android:id="@+id/right_up"
                 android:layout_width="@dimen/arrow_width"
-                android:layout_height="25dp"
+                android:layout_height="@dimen/arrow_height"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_weight="1"
                 android:src="@drawable/up"/>
@@ -123,17 +133,11 @@
             <ImageView
                 android:id="@+id/right_down"
                 android:layout_width="@dimen/arrow_width"
-                android:layout_height="25dp"
+                android:layout_height="@dimen/arrow_height"
                 android:layout_gravity="center_horizontal|top"
                 android:layout_weight="1"
                 android:rotation="180"
                 android:src="@drawable/up"/>
-
-            <TextView
-                android:id="@+id/right_score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"/>
         </LinearLayout>
     </LinearLayout>
 

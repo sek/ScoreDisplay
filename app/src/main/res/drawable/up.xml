@@ -1,17 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item>
-        <rotate
-            android:fromDegrees="45"
-            android:toDegrees="45"
-            android:pivotX="-40%"
-            android:pivotY="87%" >
-            <shape
-                android:shape="rectangle" >
-                <stroke android:color="@android:color/transparent" android:width="10dp"/>
-                <solid
-                    android:color="@color/score" />
-            </shape>
-        </rotate>
-    </item>
-</layer-list>
+<vector android:height="24dp" android:viewportHeight="150"
+        android:viewportWidth="200" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#000000" android:pathData="M0,150l100,-150l100,150z"/>
+</vector>
