@@ -12,52 +12,11 @@
         android:background="@color/background"
         android:gravity="center">
 
-        <LinearLayout
+        <com.stankurdziel.scoredisplay.ScoreView
+            android:id="@+id/score_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:id="@+id/scoreL"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:scaleY="@dimen/score_y_scale"
-                android:text=""
-                android:textColor="@color/score"
-                android:textSize="@dimen/score_font_size"/>
-
-            <TextView
-                android:id="@+id/scoreR"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:scaleY="@dimen/score_y_scale"
-                android:text="0"
-                android:textColor="@color/score"
-                android:textSize="@dimen/score_font_size"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <View
-                android:id="@+id/up"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <View
-                android:id="@+id/down"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            app:score="0"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
