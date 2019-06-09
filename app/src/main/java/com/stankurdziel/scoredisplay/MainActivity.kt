@@ -17,40 +17,31 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
-        setupGui(savedInstanceState)
+        setupGui()
         setupScoreReference()
     }
 
     private fun setupScoreReference() {
         val deviceId = FirebaseInstanceId.getInstance().id
-        val database = FirebaseDatabase.getInstance()
-        scoreReference = database.getReference("scores/$deviceId")
-        scoreReference?.setValue(0)
+        scoreReference = FirebaseDatabase.getInstance().getReference("scores/$deviceId")
         subscribeToServerSideDbChanges(scoreReference)
     }
 
-    private fun setupGui(savedInstanceState: Bundle?) {
-        if (savedInstanceState != null) score_view.score = savedInstanceState.getInt(SCORE, 0)
+    private fun setupGui() {
         score_view.scoreChangeListener = { scoreReference?.setValue(it) }
-
         fab.setOnClickListener { startActivity(Intent(this@MainActivity, SettingsActivity::class.java)) }
     }
 
     private fun subscribeToServerSideDbChanges(scoreReference: DatabaseReference?) {
         scoreReference?.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                score_view.score = dataSnapshot.getValue(Int::class.java)
+                score_view.score = dataSnapshot.value?.toString()?.toInt() ?: return
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.d("ScoreDisplay", "onCancelled(): " + databaseError.message)
             }
         })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(SCORE, score_view.score)
-        super.onSaveInstanceState(outState)
     }
 
     override fun onResume() {

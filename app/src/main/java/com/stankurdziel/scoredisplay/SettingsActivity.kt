@@ -93,11 +93,11 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setLeftScore(newScore: Int) {
-        if (!left.default()) leftRef.setValue(newScore)
+        if (!left.default() && newScore in 0..99) leftRef.setValue(newScore)
     }
 
     private fun setRightScore(newScore: Int) {
-        if (!right.default()) rightRef.setValue(newScore)
+        if (!right.default() && newScore in 0..99) rightRef.setValue(newScore)
     }
 
     private fun subscribeRight() {
