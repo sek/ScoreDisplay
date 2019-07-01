@@ -5,8 +5,8 @@
 
 Two instances of this app running side by side make a single scoreboard.
 
-![A 21st Century Scoreboard](https://scontent-lax3-1.xx.fbcdn.net/hphotos-xla1/v/t1.0-9/12523922_10153860902787173_5526631497506405450_n.jpg?oh=dd277462fe16fb5443cc0d5d0b760f1f&oe=573370EA)
-* TODO: New Picture (or short video)
+![A 21st Century Scoreboard](http://sek.github.io/ScoreDisplay/ScoreDisplay.jpg)
+
 
 ## Acknowledgements
 
